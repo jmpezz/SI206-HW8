@@ -34,8 +34,17 @@ except:
 
 
 def get_tweets():
-##YOUR CODE HERE
-
+    if 'umsi' in CACHE_DICTION:
+        print ('Using Cached Data..')
+        twitter_data = CACHE_DICTION['umsi'] #grabbing data from cache
+    else:
+        print ('Getting Data from Internet..')
+        twitter_data = api.user_timeline('umsi') #getting data from Internet
+        CACHE_DICTION['umsi'] = twitter_datass #adding to dictionary, new key value-pairing
+        file = open(CACHE_FNAME, 'w') #opens cache file for writing
+        file.write(json.dumps(CACHE_DICTION)) #making whole dictionary holding data and unique input
+        file.close()
+    return twitter_data
 
 
 ## [PART 2]
